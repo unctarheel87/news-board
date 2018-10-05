@@ -1,30 +1,20 @@
-const express = require('express')
-const path = require('path')
-const bodyParser = require('body-parser')
-const session = require("express-session")
-const passport = require("./config/passport");
-const app = express();
-const port = process.env.PORT || 8080;
-const db = require('./models');
+const cheerio = require('cheerio');
+const axios = require('axios');
 
-//passport
-app.use(session({ secret: "guitar hero", resave: true, saveUninitialized: true }));
 
-app.use(passport.initialize());
-app.use(passport.session());
+axios.get('https://www.nytimes.com/section/science').then(function(response) {
+  const $ = cheerio.load(response.data);
+  const results = [];
 
-//serve static files
-app.use(express.static(path.join(__dirname, './public')))
+  $('article.story .story-meta').each(function(i, element) {
+    const title = $(element).children('h2.headline').text().trim();
+    const summary = $(element).children('p.summary').text().trim();
+    const author = $(element).children('p.byline').text().trim();
+    const img = $(element).siblings('div.wide-thumb').children().attr('src');
+    const link = $(element).parent().attr('href');
 
-//configure bodyParser
-app.use(bodyParser.urlencoded({extended: true}))
-app.use(bodyParser.json())
-
-//require routes
-const routes = require('./controllers/burger_controller')(app, db, path)
-
-db.sequelize.sync().then(() => {
-  app.listen(port, () => {
-    console.log("server is running at " + port);
+    results.push({ title, summary, author, img, link });
   });
+
+  console.log(results);
 });

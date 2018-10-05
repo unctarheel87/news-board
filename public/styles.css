@@ -1,0 +1,13 @@
+.articles {
+  display: flex;
+}
+
+.articles div {
+  display: flex;
+  flex-direction: column; 
+}
+
+.articles img {
+  width: 300px;
+  height: 200px;
+}
