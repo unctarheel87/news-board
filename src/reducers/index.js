@@ -5,7 +5,11 @@ export default (state, action) => {
         ...state,
         articles: action.articles
       };
-
+      case "CLEAR_ARTICLES":
+      return {
+        ...state,
+        articles: []
+      };
     default:
       return state;
   }

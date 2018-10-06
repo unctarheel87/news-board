@@ -1,20 +1,21 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { store } from '../store';  
-import { getArticles } from '../actions';
+import { getArticles, clearArticles } from '../actions';
 import Navbar from './Navbar';
 import Articles from './Articles';
 
 export default class NewsBoard extends Component {
-  componentDidMount() {
-    getData();
-  }
   render() {
     return (
       <div>
         <Navbar />
+        <button onClick={scrape}>Scrape</button>
+        <button onClick={clear}>Clear</button>
+        <button data-topic='science' onClick={scrape}>Science</button>
+        <button data-topic='politics' onClick={scrape}>Politics</button>
         {
-          store.getState().articles.length > 0 &&
+          store.getState().articles &&
           <Articles store={store.getState().articles} />
         }
       </div>
@@ -22,10 +23,16 @@ export default class NewsBoard extends Component {
   }
 }
 
-function getData() {
-  axios.get('/articles/all').then(response => {
-    console.log(response);
-    store.dispatch(getArticles(response.data));
-    console.log(store.getState());
-  }).catch(err => console.log(err));
+function scrape(e) {
+  axios.get(`/scrape/${e.target.dataset.topic}`)
+  .then(response => {
+    clear();
+    store.dispatch(getArticles(response.data))
+    console.log(store.getState())
+  })
+  .catch(err => console.log(err));
+}
+
+function clear() {
+  store.dispatch(clearArticles())
 }

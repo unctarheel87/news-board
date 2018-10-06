@@ -12,15 +12,20 @@ const articleSchema = new Schema({
     trim: true,
     required: "summary is Required"
   },
-  img: {
+  author: {
     type: String,
     trim: true,
-    required: "image is Required"
+    //required: "author is Required"
+  }, 
+  image: {
+    type: String,
+    trim: true,
+    //required: "image is Required"
   },  
   link: {
     type: String,
     trim: true,
-    required: "link is Required"
+    //required: "link is Required"
   },
 });
 
