@@ -1,10 +1,9 @@
 export default (state, action) => {
   switch (action.type) {
-    case "SET_TECHNOLOGY":
-      console.log('works')
+    case "GET_ARTICLES":
       return {
         ...state,
-        tech: action.tech
+        articles: action.articles
       };
 
     default:

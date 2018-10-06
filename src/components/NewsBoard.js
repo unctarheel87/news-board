@@ -1,28 +1,31 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import { store } from '../store';  
-import { setTechnology } from '../actions';
+import { getArticles } from '../actions';
 import Navbar from './Navbar';
 import Articles from './Articles';
 
 export default class NewsBoard extends Component {
-  constructor(props) {
-    super(props)
+  componentDidMount() {
+    getData();
   }
   render() {
     return (
       <div>
         <Navbar />
-        <Articles />
-        <h1>{store.getState().tech}</h1>
-        <input id="tech"/>
-        <button onClick={dispatchBtnAction}>Update</button>
+        {
+          store.getState().articles.length > 0 &&
+          <Articles store={store.getState().articles} />
+        }
       </div>
     )
   }
 }
 
-function dispatchBtnAction(e) {
-  const input = document.getElementById("tech").value;
-  e.preventDefault(e)
-  store.dispatch(setTechnology(input));
+function getData() {
+  axios.get('/articles/all').then(response => {
+    console.log(response);
+    store.dispatch(getArticles(response.data));
+    console.log(store.getState());
+  }).catch(err => console.log(err));
 }

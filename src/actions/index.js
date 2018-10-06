@@ -1,6 +1,6 @@
-export function setTechnology (text) {
+export function getArticles (articles) {
   return {
-    type: "SET_TECHNOLOGY",
-    tech: text
+    type: "GET_ARTICLES",
+    articles: articles
   }
 }
