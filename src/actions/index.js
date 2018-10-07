@@ -1,13 +1,19 @@
-export function getArticles (articles) {
+export function setArticles (articles) {
   return {
-    type: "GET_ARTICLES",
-    articles: articles
+    type: "SET_ARTICLES",
+    articles
   }
 }
 
-export function clearArticles (articles) {
+export function setSavedArticles (articles) {
   return {
-    type: "GET_ARTICLES",
-    articles: articles
+    type: "SET_SAVED_ARTICLES",
+    articles
+  }
+}
+
+export function clearArticles () {
+  return {
+    type: "CLEAR_ARTICLES"
   }
 }

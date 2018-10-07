@@ -24,13 +24,21 @@ app.get('/scrape/:topic', (req, res) => {
 app.post('/save', (req, res) => {
    //insert document
   Article.create(req.body)
-    .then(dbArticle => console.log(dbArticle))
+    .then(dbArticle => res.send(dbArticle))
     .catch(err => { return res.json(err) });
 });
 
 app.get('/clear', (req, res) => {
   Article.deleteMany({}).then(dbArticles => {
     res.end(dbArticles);
+  }).catch(err => {
+    console.log(err);
+  })
+});
+
+app.get('/articles/saved', (req, res) => {
+  Article.find({}).then(dbArticles => {
+    res.json(dbArticles);
   }).catch(err => {
     console.log(err);
   })
@@ -43,9 +51,9 @@ function scrapeData(req, res, topic) {
     const $ = cheerio.load(response.data);
     const articles = []
     $('div.story-body').each(function(i, element) {
-        const title = $(element).children('h2.headline').text();
-        const summary = $(element).children('p.summary').text();
-        const author = $(element).children('p.byline').text();
+        const title = $(element).children('h2.headline').text().trim();
+        const summary = $(element).children('p.summary').text().trim();
+        const author = $(element).children('p.byline').text().trim();
         const img = $(element).siblings('.media').find('img').attr('src');
         const link = $(element).parent().attr('href');
        

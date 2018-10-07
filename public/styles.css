@@ -1,15 +1,63 @@
-@import url('https://fonts.googleapis.com/css?family=News+Cycle');
+@import url('https://fonts.googleapis.com/css?family=News+Cycle:400,700');
 
 #app {
   font-family: 'News Cycle', sans-serif;
+}
+
+.heading {
+  display: flex;
+  justify-content: space-between;
+  margin: 5px 9%;
 }
 
 nav {
   padding: 0 18px;
 }
 
+main {
+  display: flex
+}
+
+h4 {
+  border-bottom: 1px solid #e2e2e2;
+  padding:10px;
+}
+
+.topic-buttons {
+  display: flex;
+  justify-content: space-around;
+  margin: 30px;
+  font-size: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #e2e2e2;
+}
+
+.topic-buttons button {
+  text-transform: uppercase;
+  background: rgba(255, 255, 255, 0);
+  border:none;
+  font-weight: bold;
+}
+
+.topic-buttons button:hover {
+  color: #ee6e73;
+}
+
+.savedArticles {
+  flex: 1;
+  padding: 20px;
+}
+
+.savedArticles div {
+  margin-bottom: 30px;
+}
+
+.btn {
+  color: initial;
+}
+
 .articles {
-  width: 1000px;
+  flex: 4;
   display: flex;
   flex-wrap: wrap;
   margin: 30px 0;
@@ -26,7 +74,7 @@ nav {
   flex: 50%
 }
 
-.articles div img {
+.articles div img, .savedArticles div img {
   width: 100%;
   height: auto;
 }
