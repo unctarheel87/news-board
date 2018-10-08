@@ -12,11 +12,9 @@ app.use(express.json());
 
 app.use(express.static('public'))
 
-if(process.env === 'MONGODB_URI') {
-  mongoose.connect("mongodb://heroku_6nrd6j21:s3ld8tobei3cov14a14qc9tk7j@ds025459.mlab.com:25459/heroku_6nrd6j21", { useNewUrlParser: true });
-} else {
-  mongoose.connect("mongodb://localhost/newsboard", { useNewUrlParser: true });
-}
+const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/newsboard";
+
+mongoose.connect(MONGODB_URI);
 
 app.get('/', (req, res) => {
   res.sendFile('index.html');
