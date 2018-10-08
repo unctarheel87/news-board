@@ -2,7 +2,7 @@ const cheerio = require('cheerio');
 const axios = require('axios');
 const express = require('express');
 const mongoose = require('mongoose');
-const PORT = '8080';
+const PORT = process.env.PORT || '8080';
 const Article = require('./models/article');
 const Comment = require('./models/comment');
 
