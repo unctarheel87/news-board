@@ -27,6 +27,10 @@ const articleSchema = new Schema({
     trim: true,
     //required: "link is Required"
   },
+  comments: {
+    type: Schema.Types.ObjectId,
+    ref: "Comment"
+  }
 });
 
 module.exports = mongoose.model('Article', articleSchema);

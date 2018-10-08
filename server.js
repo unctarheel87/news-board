@@ -4,6 +4,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const PORT = '8080';
 const Article = require('./models/article');
+const Comment = require('./models/comment');
 
 const app = express();
 app.use(express.urlencoded({ extended: true }));
@@ -37,11 +38,32 @@ app.get('/clear', (req, res) => {
 });
 
 app.get('/articles/saved', (req, res) => {
-  Article.find({}).then(dbArticles => {
-    res.json(dbArticles);
-  }).catch(err => {
-    console.log(err);
+  Article.find({})
+    .populate('comments')
+    .then(dbArticles => {
+      res.json(dbArticles);
+    }).catch(err => {
+      console.log(err);
+    })
+});
+
+app.post('/articles/comments/', (req, res) => {
+  Comment.create(req.body).then(dbComment => {
+    return Article.findOneAndUpdate({}, { 
+      $push: { comments: dbComment._id }
+    }, { new: true } )
+  }).then(dbArticle => {
+    res.json(dbArticle);
   })
+  .catch(err => {
+    res.json(err);
+  });
+});
+
+app.delete('/articles/saved/:id', (req, res) => {
+  Article.deleteOne({ _id: req.params.id })
+    .then(dbArticle => res.send(dbArticle))
+    .catch(err => { return res.json(err) });
 });
 
 app.listen(PORT, () => console.log("server is running..."));

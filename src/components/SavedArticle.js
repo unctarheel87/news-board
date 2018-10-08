@@ -1,5 +1,7 @@
 import React from 'react';
-import { Collapsible, CollapsibleItem } from 'react-materialize';
+import axios from 'axios';
+import Comment from './Comment';
+import getSavedArticles from './getSavedArticles';
  
 export default(props) => {
   return (
@@ -7,13 +9,17 @@ export default(props) => {
       <img src={props.article.image} />
       <h5>{props.article.title}</h5>
       <p>{props.article.summary}</p>
-      <Collapsible className="z-depth-0">
-        <CollapsibleItem header='Leave a comment' icon='message'>
-          <form>
-            <textarea className="materialize-textarea"></textarea>
-          </form>
-        </CollapsibleItem>
-      </Collapsible>
+      <Comment article={props.article} />
+      <button className='btn red lighten-3 delete-btn' 
+              onClick={(e) => { removeArticle(props.article._id) }}
+      >
+      x</button>
     </div>
   );
+}
+
+function removeArticle(id) {
+  axios.delete(`/articles/saved/${id}`)
+    .then(response => getSavedArticles())
+    .catch(err => console.log(err));
 }

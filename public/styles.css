@@ -48,12 +48,18 @@ h4 {
   padding: 20px;
 }
 
-.savedArticles div {
-  margin-bottom: 30px;
-}
-
 .btn {
   color: initial;
+}
+
+.comment-btn {
+  color: white;
+  padding: 0 10px;
+}
+
+.delete-btn {
+  color: white;
+  margin-bottom: 20px;
 }
 
 .articles {
