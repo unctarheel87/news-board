@@ -6,7 +6,7 @@
   "scripts": {
     "build:dev": "webpack --watch",
     "build:prod": "webpack -p --env production",
-    "start": "nodemon server.js"
+    "start": "node server.js"
   },
   "engines": {
     "node": "10.9.0"
