@@ -5,7 +5,6 @@ import { store } from '../store';
 export default() => {
   axios.get('/articles/saved')
     .then(response => {
-      console.log('runs')
       store.dispatch(setSavedArticles(response.data))
       console.log(store.getState())
   })

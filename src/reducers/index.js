@@ -4,9 +4,9 @@ export default (state, action) => {
       return {
         ...state,
         articles: action.articles.filter((article, i) => {
-          for (let savedArticle of state.savedArticles) {
+          return state.savedArticles.every(savedArticle => {
             return article.title !== savedArticle.title
-          }
+          })
         })
       };
     case "CLEAR_ARTICLES":
@@ -17,7 +17,12 @@ export default (state, action) => {
     case "SET_SAVED_ARTICLES":
       return {
         ...state,
-        savedArticles: action.articles
+        savedArticles: action.articles,
+        articles: state.articles.filter((article, i) => {
+          return action.articles.every(savedArticle => {
+            return article.title !== savedArticle.title
+          })
+        })
       };
     default:
       return state;
