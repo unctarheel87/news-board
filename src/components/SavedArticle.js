@@ -7,8 +7,9 @@ export default(props) => {
   return (
     <div>
       <img src={props.article.image} />
-      <h5>{props.article.title}</h5>
+      <h5><a href={props.article.link} target="_blank">{props.article.title}</a></h5>
       <p>{props.article.summary}</p>
+      <p className="author">{props.article.author}</p>
       <Comment article={props.article} />
       <button className='btn red lighten-3 delete-btn' 
               onClick={(e) => { removeArticle(props.article._id) }}

@@ -8,7 +8,9 @@ export default(props) => {
     const title = props.article.title
     const summary = props.article.summary
     const image = props.article.img
-    const article = { title, summary, image }
+    const author = props.article.author
+    const link = props.article.link
+    const article = { title, summary, image, author, link }
     
     axios.post('/save', article)
       .then(response => {
@@ -19,8 +21,9 @@ export default(props) => {
   return (
     <div>
       <img src={props.article.img} />
-      <h5>{props.article.title}</h5>
+      <h5><a href={props.article.link} target="_blank">{props.article.title}</a></h5>
       <p>{props.article.summary}</p>
+      <p className="author">{props.article.author}</p>
       <button className="btn grey lighten-3" onClick={saveArticle}>Save Article</button>
     </div>
   );
