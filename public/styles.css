@@ -11,7 +11,17 @@
 }
 
 nav {
-  padding: 0 18px;
+  padding: 0 20px;
+}
+
+nav i.material-icons {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+nav ul a {
+  display: flex;
+  align-items: center;
 }
 
 main {
