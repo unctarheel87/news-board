@@ -16,7 +16,10 @@ export default (props) => {
     return (
       <Collapsible className="z-depth-0">
         <CollapsibleItem header='Leave a comment' icon='mode_edit'>
-          <form onSubmit={saveComment}>
+          <form onSubmit = {(e) => {
+                saveComment(e, props.article._id)
+              }}
+          >  
             <textarea className="materialize-textarea" name="comment"></textarea>
             <button className='btn red lighten-3 comment-btn' type="submit">Add</button>
           </form>
@@ -26,10 +29,11 @@ export default (props) => {
   }
 }
 
-function saveComment(e) {
+function saveComment(e, id) {
   e.preventDefault();
   const comment = e.target.comment.value
-  axios.post(`/articles/comments`, { comment })
+  console.log(id)
+  axios.post(`/articles/${id}/comments`, { comment })
   .then(response => getSavedArticles())
   .catch(err => console.log(err));
 }

@@ -38,9 +38,9 @@ router.get('/articles/saved', (req, res) => {
     })
 });
 
-router.post('/articles/comments/', (req, res) => {
+router.post('/articles/:id/comments/', (req, res) => {
   Comment.create(req.body).then(dbComment => {
-    return Article.findOneAndUpdate({}, { 
+    return Article.findOneAndUpdate({_id: req.params.id}, { 
       $push: { comments: dbComment._id }
     }, { new: true } )
   }).then(dbArticle => {
