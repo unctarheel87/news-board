@@ -18,11 +18,12 @@ export default(props) => {
 }
 
 function scrape(e) {
+  clear();
+  document.getElementById('preloader').style.display = 'block';
   axios.get(`/scrape/${e.target.dataset.topic}`)
   .then(response => {
-    clear();
     store.dispatch(setArticles(response.data))
-    console.log(store.getState())
+    document.getElementById('preloader').style.display = 'none';
   })
   .catch(err => console.log(err));
 }

@@ -12,6 +12,14 @@
   margin: 5px 9%;
 }
 
+#preloader {
+  position: relative;
+  display: none;
+  left: 35%;
+  top: 150px;
+  height: 100%;
+}
+
 nav {
   padding: 0 20px;
 }
