@@ -44,17 +44,19 @@ router.post('/articles/:id/comments/', (req, res) => {
       $push: { comments: dbComment._id }
     }, { new: true } )
   }).then(dbArticle => {
-    res.json(dbArticle);
-  })
-  .catch(err => {
-    res.json(err);
-  });
+      res.json(dbArticle);
+    })
+    .catch(err => res.json(err));
 });
 
 router.delete('/articles/saved/:id', (req, res) => {
-  Article.deleteOne({ _id: req.params.id })
-    .then(dbArticle => res.send(dbArticle))
-    .catch(err => { return res.json(err) });
+  Article.findByIdAndRemove(req.params.id)
+    .then(dbArticle => {
+      return Comment.findByIdAndRemove(dbArticle.comments)
+     }).then(dbArticle => {
+        res.json(dbArticle)
+        })
+      .catch(err => res.json(err));
 });
 
 function scrapeData(req, res, topic) {
