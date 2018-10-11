@@ -41,7 +41,7 @@ router.get('/articles/saved', (req, res) => {
 router.post('/articles/:id/comments/', (req, res) => {
   Comment.create(req.body).then(dbComment => {
     return Article.findOneAndUpdate({_id: req.params.id}, { 
-      $push: { comments: dbComment._id }
+      $set: { comments: dbComment._id }
     }, { new: true } )
   }).then(dbArticle => {
       res.json(dbArticle);
@@ -66,6 +66,14 @@ router.delete('/articles/saved/:id', (req, res) => {
         res.json(dbArticle)
         })
       .catch(err => res.json(err));
+});
+
+router.delete('/comments/:id', (req, res) => {
+  Comment.findByIdAndRemove(req.params.id)
+    .then(dbComment => {
+      res.json(dbComment)
+      })
+    .catch(err => res.json(err));
 });
 
 function scrapeData(req, res, topic) {

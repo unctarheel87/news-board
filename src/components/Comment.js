@@ -41,6 +41,7 @@ export default class Comment extends Component {
             {this.state.commentText.isVisible ? this.props.article.comments.comment : false}
             {this.state.commentIcons.isVisible ? 
               <CommentIcons 
+                article={this.props.article} 
                 handleFormView={this.handleFormView}
                 handleIconsView={this.handleIconsView}
                 handleCommentView={this.handleCommentView}
@@ -78,6 +79,7 @@ export default class Comment extends Component {
 function saveComment(e, id) {
   e.preventDefault();
   const comment = e.target.comment.value
+  console.log(comment)
   axios.post(`/articles/${id}/comments`, { comment })
   .then(response => getSavedArticles())
   .catch(err => console.log(err));
@@ -129,7 +131,18 @@ function CommentIcons(props) {
         } 
         }
       >mode_edit</i>
-      <i className="material-icons">delete</i>
+      <i className="material-icons"
+      onClick={(e) => {
+        removeComment(props.article.comments._id)
+      } 
+      }
+      >delete</i>
     </div>
   )
+}
+
+function removeComment(id) {
+  axios.delete(`/comments/${id}`)
+    .then(response => getSavedArticles())
+    .catch(err => console.log(err));
 }
