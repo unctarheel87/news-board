@@ -12,7 +12,7 @@ export default(props) => {
       <div className="articles">
         {
         props.store.articles.map(article => {
-          return <Article key={article.id} article={article} />
+          return <Article key={article._id} article={article} />
         })
         }
       </div>
@@ -20,7 +20,7 @@ export default(props) => {
       <h4>My Articles</h4>
         {
         props.store.savedArticles.map(article => {
-          return <SavedArticle key={article.id} article={article} />
+          return <SavedArticle key={article._id} article={article} />
         })
         }
       </div>
