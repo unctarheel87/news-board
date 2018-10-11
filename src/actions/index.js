@@ -17,3 +17,11 @@ export function clearArticles () {
     type: "CLEAR_ARTICLES"
   }
 }
+
+export function changeNoteState (noteValue, id) {
+  return {
+    type: "CHANGE_NOTE_STATE",
+    noteValue,
+    id
+  }
+}

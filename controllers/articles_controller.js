@@ -49,6 +49,15 @@ router.post('/articles/:id/comments/', (req, res) => {
     .catch(err => res.json(err));
 });
 
+router.put('/articles/comments/:id', (req, res) => {
+  Comment.findOneAndUpdate({_id: req.params.id}, req.body)
+    .then(dbComment => {
+      res.json(dbComment);
+      console.log(dbComment)
+    })
+    .catch(err => res.json(err));
+});
+
 router.delete('/articles/saved/:id', (req, res) => {
   Article.findByIdAndRemove(req.params.id)
     .then(dbArticle => {

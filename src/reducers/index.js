@@ -24,6 +24,17 @@ export default (state, action) => {
           })
         })
       };
+    case "CHANGE_NOTE_STATE": 
+      return {
+        ...state,
+        savedArticles: state.savedArticles.map(article => {
+          if(article._id === action.id) {
+            article.comments.comment = action.noteValue
+            return article
+          }
+          return article
+        })
+      }
     default:
       return state;
   }

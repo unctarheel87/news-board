@@ -97,6 +97,22 @@ a:hover {
   margin-bottom: 20px;
 }
 
+.comment-icons i:hover {
+  cursor: pointer;
+  background: rgba(238, 110, 115, 0.3);
+  border-radius: 4px;
+}
+
+.comment-icons {
+  position: absolute;
+  top: 4%;
+  right: 1%;
+}
+
+.collapsible-body {
+  position: relative;
+}
+
 .articles {
   flex: 4;
   display: flex;
