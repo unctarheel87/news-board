@@ -38,22 +38,22 @@ export default class Comment extends Component {
       return (
         <Collapsible className="z-depth-0">
           <CollapsibleItem header='View comment' id="comment-container" icon='message'>
-            {this.state.commentText.isVisible ? this.props.article.comments.comment : false}
-            {this.state.commentIcons.isVisible ? 
+            {this.state.commentText.isVisible && this.props.article.comments.comment : false}
+            {this.state.commentIcons.isVisible && 
               <CommentIcons 
                 article={this.props.article} 
                 handleFormView={this.handleFormView}
                 handleIconsView={this.handleIconsView}
                 handleCommentView={this.handleCommentView}
-              /> : false
+              /> 
             }
-            {this.state.editForm.isVisible ? 
+            {this.state.editForm.isVisible &&
               <EditForm 
                 article={this.props.article} 
                 handleFormView={this.handleFormView}
                 handleIconsView={this.handleIconsView}
                 handleCommentView={this.handleCommentView}
-              /> : false
+              />
             }
           </CollapsibleItem>
         </Collapsible>
@@ -79,7 +79,6 @@ export default class Comment extends Component {
 function saveComment(e, id) {
   e.preventDefault();
   const comment = e.target.comment.value
-  console.log(comment)
   axios.post(`/articles/${id}/comments`, { comment })
   .then(response => getSavedArticles())
   .catch(err => console.log(err));
@@ -95,7 +94,6 @@ function updateComment(e, id) {
 
 function handleChange(e, id) {
   store.dispatch(changeNoteState(e.target.value, id))
-  console.log(store.getState())
 }
 
 function EditForm(props) { 
